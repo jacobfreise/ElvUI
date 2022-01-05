@@ -922,6 +922,9 @@ end
 
 UF.SmartSettings = {
 	raid = {},
+	raid25 = { enable = false },
+	raid30 = { enable = false },
+	raid35 = { enable = false },
 	raid40 = { numGroups = 8 },
 }
 
@@ -939,8 +942,14 @@ function UF:HandleSmartVisibility(skip)
 		end
 
 		sv.raid.visibility = '[@raid6,noexists] hide;show'
-		sv.raid40.visibility = '[@raid6,noexists] hide;show'
+    sv.raid25.visibility = '[@raid21,noexists][@raid26,exists] hide;show'
+    sv.raid30.visibility = '[@raid26,noexists][@raid31,exists] hide;show'
+    sv.raid35.visibility = '[@raid31,noexists][@raid36,exists] hide;show'
+		sv.raid40.visibility = '[@raid36,noexists] hide;show'
 		sv.raid.enable = maxPlayers < 40
+    sv.raid25.enable = false
+    sv.raid30.enable = false
+    sv.raid35.enable = false
 		sv.raid40.enable = maxPlayers == 40
 
 		if sv.raid.enable then
@@ -950,9 +959,15 @@ function UF:HandleSmartVisibility(skip)
 			end
 		end
 	else
-		sv.raid.visibility = E.Retail and '[@raid6,noexists][@raid31,exists] hide;show' or '[@raid6,noexists][@raid26,exists] hide;show'
-		sv.raid40.visibility = E.Retail and '[@raid31,noexists] hide;show' or '[@raid26,noexists] hide;show'
+		sv.raid.visibility = E.Retail and '[@raid6,noexists][@raid21,exists] hide;show' or '[@raid6,noexists][@raid26,exists] hide;show'
+    sv.raid25.visibility = E.Retail and '[@raid21,noexists][@raid26,exists] hide;show' or 'hide'
+    sv.raid30.visibility = E.Retail and '[@raid26,noexists][@raid31,exists] hide;show' or 'hide'
+    sv.raid35.visibility = E.Retail and '[@raid31,noexists][@raid36,exists] hide;show'
+		sv.raid40.visibility = E.Retail and '[@raid36,noexists] hide;show' or '[@raid26,noexists] hide;show'
 		sv.raid.enable = true
+    sv.raid25.enable = true
+    sv.raid30.enable = true
+    sv.raid35.enable = true
 		sv.raid40.enable = true
 	end
 
@@ -1387,6 +1402,9 @@ local Blacklist = {
 	targettargettarget = { enable = true, fader = true },
 	party = { enable = true, fader = true, visibility = true },
 	raid = { enable = true, fader = true, visibility = true },
+	raid25 = { enable = true, fader = true, visibility = true },
+	raid30 = { enable = true, fader = true, visibility = true },
+	raid35 = { enable = true, fader = true, visibility = true },
 	raid40 = { enable = true, fader = true, visibility = true },
 	raidpet = { enable = true, fader = true, visibility = true },
 }

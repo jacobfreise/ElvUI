@@ -2251,11 +2251,38 @@ P.unitframe.units.raid.targetsGroup = nil
 P.unitframe.units.raid.visibility = '[@raid6,noexists][@raid26,exists] hide;show'
 P.unitframe.units.raid.width = 80
 
+P.unitframe.units.raid25 = CopyTable(P.unitframe.units.raid)
+P.unitframe.units.raid25.debuffs.anchorPoint = 'RIGHT'
+P.unitframe.units.raid25.height = 27
+P.unitframe.units.raid25.numGroups = 8
+P.unitframe.units.raid25.visibility = '[@raid21,noexists] hide;show'
+P.unitframe.units.raid25.rdebuffs.enable = false
+P.unitframe.units.raid25.power.enable = false
+P.unitframe.units.raid25.roleIcon.enable = false
+
+P.unitframe.units.raid30 = CopyTable(P.unitframe.units.raid)
+P.unitframe.units.raid30.debuffs.anchorPoint = 'RIGHT'
+P.unitframe.units.raid30.height = 27
+P.unitframe.units.raid30.numGroups = 8
+P.unitframe.units.raid30.visibility = '[@raid26,noexists] hide;show'
+P.unitframe.units.raid30.rdebuffs.enable = false
+P.unitframe.units.raid30.power.enable = false
+P.unitframe.units.raid30.roleIcon.enable = false
+
+P.unitframe.units.raid35 = CopyTable(P.unitframe.units.raid)
+P.unitframe.units.raid35.debuffs.anchorPoint = 'RIGHT'
+P.unitframe.units.raid35.height = 27
+P.unitframe.units.raid35.numGroups = 8
+P.unitframe.units.raid35.visibility = '[@raid31,noexists] hide;show'
+P.unitframe.units.raid35.rdebuffs.enable = false
+P.unitframe.units.raid35.power.enable = false
+P.unitframe.units.raid35.roleIcon.enable = false
+
 P.unitframe.units.raid40 = CopyTable(P.unitframe.units.raid)
 P.unitframe.units.raid40.debuffs.anchorPoint = 'RIGHT'
 P.unitframe.units.raid40.height = 27
 P.unitframe.units.raid40.numGroups = 8
-P.unitframe.units.raid40.visibility = '[@raid26,noexists] hide;show'
+P.unitframe.units.raid40.visibility = '[@raid36,noexists] hide;show'
 P.unitframe.units.raid40.rdebuffs.enable = false
 P.unitframe.units.raid40.power.enable = false
 P.unitframe.units.raid40.roleIcon.enable = false
@@ -2298,6 +2325,9 @@ P.unitframe.units.assist = CopyTable(P.unitframe.units.tank)
 for i, classTag in next, {'DRUID', 'HUNTER', 'MAGE' , 'PALADIN', 'PRIEST', 'ROGUE', 'SHAMAN', 'WARLOCK', 'WARRIOR', 'DEATHKNIGHT', 'MONK', 'DEMONHUNTER'} do
 	P.unitframe.units.party['CLASS'..i] = classTag
 	P.unitframe.units.raid['CLASS'..i] = classTag
+	P.unitframe.units.raid25['CLASS'..i] = classTag
+	P.unitframe.units.raid30['CLASS'..i] = classTag
+	P.unitframe.units.raid35['CLASS'..i] = classTag
 	P.unitframe.units.raid40['CLASS'..i] = classTag
 	P.unitframe.units.raidpet['CLASS'..i] = classTag
 end
@@ -2305,6 +2335,9 @@ end
 for i, role in next, {'TANK', 'HEALER', 'DAMAGER'} do
 	P.unitframe.units.party['ROLE'..i] = role
 	P.unitframe.units.raid['ROLE'..i] = role
+	P.unitframe.units.raid25['ROLE'..i] = role
+	P.unitframe.units.raid30['ROLE'..i] = role
+	P.unitframe.units.raid35['ROLE'..i] = role
 	P.unitframe.units.raid40['ROLE'..i] = role
 	P.unitframe.units.raidpet['ROLE'..i] = role
 end
@@ -2615,6 +2648,9 @@ E.LayoutMoverPositions = {
 		ThreatBarMover = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,4",
 		PetAB = "RIGHT,ElvUIParent,RIGHT,-4,0",
 		ShiftAB = "BOTTOM,ElvUIParent,BOTTOM,0,58",
+		ElvUF_Raid25Mover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
+		ElvUF_Raid30Mover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
+		ElvUF_Raid35Mover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
 		ElvUF_Raid40Mover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
 		ElvUF_RaidMover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
 		ElvUF_PartyMover = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269",
