@@ -209,7 +209,7 @@ local function CreateUnitframesConfig()
 	config.args.units.args.party.name = L["Party"]
 	config.args.units.args.raid.name = L["Raid"]
 	config.args.units.args.raid25.name = L["Raid-25"]
-	config.args.units.args.raid30.name = L["Raid-40"]
+	config.args.units.args.raid30.name = L["Raid-30"]
 	config.args.units.args.raid35.name = L["Raid-35"]
 	config.args.units.args.raid40.name = L["Raid-40"]
 	config.args.units.args.raidpet.name = L["Raid Pet"]

@@ -941,15 +941,15 @@ function UF:HandleSmartVisibility(skip)
 			maxPlayers = 40
 		end
 
-		sv.raid.visibility = '[@raid6,noexists] hide;show'
-    sv.raid25.visibility = '[@raid21,noexists][@raid26,exists] hide;show'
-    sv.raid30.visibility = '[@raid26,noexists][@raid31,exists] hide;show'
-    sv.raid35.visibility = '[@raid31,noexists][@raid36,exists] hide;show'
+		sv.raid.visibility = '[@raid6,noexists][@raid21,exists] hide;show'
+		sv.raid25.visibility = '[@raid21,noexists][@raid26,exists] hide;show'
+		sv.raid30.visibility = '[@raid26,noexists][@raid31,exists] hide;show'
+		sv.raid35.visibility = '[@raid31,noexists][@raid36,exists] hide;show'
 		sv.raid40.visibility = '[@raid36,noexists] hide;show'
 		sv.raid.enable = maxPlayers < 40
-    sv.raid25.enable = false
-    sv.raid30.enable = false
-    sv.raid35.enable = false
+		sv.raid25.enable = false
+		sv.raid30.enable = false
+		sv.raid35.enable = false
 		sv.raid40.enable = maxPlayers == 40
 
 		if sv.raid.enable then
@@ -960,14 +960,14 @@ function UF:HandleSmartVisibility(skip)
 		end
 	else
 		sv.raid.visibility = E.Retail and '[@raid6,noexists][@raid21,exists] hide;show' or '[@raid6,noexists][@raid26,exists] hide;show'
-    sv.raid25.visibility = E.Retail and '[@raid21,noexists][@raid26,exists] hide;show' or 'hide'
-    sv.raid30.visibility = E.Retail and '[@raid26,noexists][@raid31,exists] hide;show' or 'hide'
-    sv.raid35.visibility = E.Retail and '[@raid31,noexists][@raid36,exists] hide;show'
+		sv.raid25.visibility = E.Retail and '[@raid21,noexists][@raid26,exists] hide;show' or 'hide'
+		sv.raid30.visibility = E.Retail and '[@raid26,noexists][@raid31,exists] hide;show' or 'hide'
+		sv.raid35.visibility = E.Retail and '[@raid31,noexists][@raid36,exists] hide;show' or 'hide'
 		sv.raid40.visibility = E.Retail and '[@raid36,noexists] hide;show' or '[@raid26,noexists] hide;show'
 		sv.raid.enable = true
-    sv.raid25.enable = true
-    sv.raid30.enable = true
-    sv.raid35.enable = true
+		sv.raid25.enable = true
+		sv.raid30.enable = true
+		sv.raid35.enable = true
 		sv.raid40.enable = true
 	end
 
