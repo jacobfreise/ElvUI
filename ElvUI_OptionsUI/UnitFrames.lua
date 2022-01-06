@@ -1552,10 +1552,13 @@ Raid.readycheckIcon = GetOptionsTable_ReadyCheckIcon(UF.CreateAndUpdateHeaderGro
 Raid.resurrectIcon = GetOptionsTable_ResurrectIcon(UF.CreateAndUpdateHeaderGroup, 'raid')
 Raid.summonIcon = GetOptionsTable_SummonIcon(UF.CreateAndUpdateHeaderGroup, 'raid')
 
-GroupUnits.raid25 = ACH:Group(L["Raid-25"], nil, nil, nil, function(info) return E.db.unitframe.units.raid40[info[#info]] end, function(info, value) E.db.unitframe.units.raid25[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid25') end)
-GroupUnits.raid30 = ACH:Group(L["Raid-30"], nil, nil, nil, function(info) return E.db.unitframe.units.raid40[info[#info]] end, function(info, value) E.db.unitframe.units.raid30[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid30') end)
-GroupUnits.raid35 = ACH:Group(L["Raid-35"], nil, nil, nil, function(info) return E.db.unitframe.units.raid40[info[#info]] end, function(info, value) E.db.unitframe.units.raid35[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid35') end)
+GroupUnits.raid25 = ACH:Group(L["Raid-25"], nil, nil, nil, function(info) return E.db.unitframe.units.raid25[info[#info]] end, function(info, value) E.db.unitframe.units.raid25[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid25') end)
+GroupUnits.raid30 = ACH:Group(L["Raid-30"], nil, nil, nil, function(info) return E.db.unitframe.units.raid30[info[#info]] end, function(info, value) E.db.unitframe.units.raid30[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid30') end)
+GroupUnits.raid35 = ACH:Group(L["Raid-35"], nil, nil, nil, function(info) return E.db.unitframe.units.raid35[info[#info]] end, function(info, value) E.db.unitframe.units.raid35[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid35') end)
 GroupUnits.raid40 = ACH:Group(L["Raid-40"], nil, nil, nil, function(info) return E.db.unitframe.units.raid40[info[#info]] end, function(info, value) E.db.unitframe.units.raid40[info[#info]] = value UF:CreateAndUpdateHeaderGroup('raid40') end)
+local Raid25 = GroupUnits.raid25.args
+local Raid30 = GroupUnits.raid30.args
+local Raid35 = GroupUnits.raid35.args
 local Raid40 = GroupUnits.raid40.args
 
 Raid25.header = ACH:Description(L["|cffFF0000Warning:|r Enable and Number of Groups are managed by Smart Raid Filter. Disable Smart Raid Filter in (UnitFrames - General) to change these settings."], 0, 'large', nil, nil, nil, nil, nil, function() return not E.db.unitframe.smartRaidFilter end)
