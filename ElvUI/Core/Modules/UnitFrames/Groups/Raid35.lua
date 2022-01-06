@@ -48,7 +48,7 @@ function UF:Construct_Raid35Frames()
 	return self
 end
 
-function UF:Update_Raid30Header(header, db)
+function UF:Update_Raid35Header(header, db)
 	local parent = header:GetParent()
 	parent.db = db
 
