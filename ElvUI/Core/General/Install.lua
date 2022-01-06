@@ -449,6 +449,15 @@ function E:SetupLayout(layout, noDataReset, noDisplayMsg)
 				E.db.unitframe.units.raid.roleIcon.xOffset = 0
 				E.db.unitframe.units.raid.visibility = '[@raid6,noexists] hide;show'
 				E.db.unitframe.units.raid.width = 92
+			--Raid25
+				E.db.unitframe.units.raid25.enable = false
+				E.db.unitframe.units.raid25.rdebuffs.font = 'PT Sans Narrow'
+			--Raid30
+				E.db.unitframe.units.raid30.enable = false
+				E.db.unitframe.units.raid30.rdebuffs.font = 'PT Sans Narrow'
+			--Raid35
+				E.db.unitframe.units.raid35.enable = false
+				E.db.unitframe.units.raid35.rdebuffs.font = 'PT Sans Narrow'
 			--Raid40
 				E.db.unitframe.units.raid40.enable = false
 				E.db.unitframe.units.raid40.rdebuffs.font = 'PT Sans Narrow'

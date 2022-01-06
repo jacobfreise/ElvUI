@@ -1,22 +1,15 @@
-local E, L, V, P, G = unpack(select(2, ...)); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 
 local _, ns = ...
 local ElvUF = ns.oUF
 assert(ElvUF, 'ElvUI was unable to locate oUF.')
 
-local _G = _G
-local CreateFrame = CreateFrame
--- GLOBALS: ElvUF_Raid30
-
 function UF:Construct_Raid30Frames()
-	self:SetScript('OnEnter', _G.UnitFrame_OnEnter)
-	self:SetScript('OnLeave', _G.UnitFrame_OnLeave)
+	self:SetScript('OnEnter', UF.UnitFrame_OnEnter)
+	self:SetScript('OnLeave', UF.UnitFrame_OnLeave)
 
-	self.RaisedElementParent = CreateFrame('Frame', nil, self)
-	self.RaisedElementParent.TextureParent = CreateFrame('Frame', nil, self.RaisedElementParent)
-	self.RaisedElementParent:SetFrameLevel(self:GetFrameLevel() + 100)
-
+	self.RaisedElementParent = UF:CreateRaisedElement(self)
 	self.Health = UF:Construct_HealthBar(self, true, true, 'RIGHT')
 	self.Power = UF:Construct_PowerBar(self, true, true, 'LEFT')
 	self.PowerPrediction = UF:Construct_PowerPrediction(self)
@@ -43,11 +36,14 @@ function UF:Construct_Raid30Frames()
 	self.HealthPrediction = UF:Construct_HealComm(self)
 	self.Fader = UF:Construct_Fader()
 	self.Cutaway = UF:Construct_Cutaway(self)
-	self.AlternativePower = UF:Construct_AltPowerBar(self)
-	self.ClassBar = 'AlternativePower'
 	self.customTexts = {}
 
-	self.unitframeType = 'raid30'
+	if E.Retail then
+		self.AlternativePower = UF:Construct_AltPowerBar(self)
+		self.ClassBar = 'AlternativePower'
+	end
+
+	self.unitframeType = 'rai30'
 
 	return self
 end
@@ -118,8 +114,6 @@ function UF:Update_Raid30Frames(frame, db)
 	UF:Configure_Threat(frame)
 	UF:Configure_RaidDebuffs(frame)
 	UF:Configure_RaidIcon(frame)
-	UF:Configure_ResurrectionIcon(frame)
-	UF:Configure_SummonIcon(frame)
 	UF:Configure_AuraHighlight(frame)
 	UF:Configure_RoleIcon(frame)
 	UF:Configure_HealComm(frame)
@@ -127,12 +121,17 @@ function UF:Update_Raid30Frames(frame, db)
 	UF:Configure_Fader(frame)
 	UF:Configure_AuraWatch(frame)
 	UF:Configure_ReadyCheckIcon(frame)
+	UF:Configure_ResurrectionIcon(frame)
+	UF:Configure_SummonIcon(frame)
 	UF:Configure_CustomTexts(frame)
 	UF:Configure_PhaseIcon(frame)
 	UF:Configure_Cutaway(frame)
 	UF:Configure_ClassBar(frame)
-	UF:Configure_AltPowerBar(frame)
 	UF:UpdateNameSettings(frame)
+
+	if E.Retail then
+		UF:Configure_AltPowerBar(frame)
+	end
 
 	frame:UpdateAllElements('ElvUI_UpdateAllElements')
 end

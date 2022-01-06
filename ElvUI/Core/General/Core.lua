@@ -359,6 +359,9 @@ function E:GeneralMedia_ApplyToAll()
 	E.db.unitframe.font = font
 	E.db.unitframe.units.party.rdebuffs.font = font
 	E.db.unitframe.units.raid.rdebuffs.font = font
+	E.db.unitframe.units.raid25.rdebuffs.font = font
+	E.db.unitframe.units.raid30.rdebuffs.font = font
+	E.db.unitframe.units.raid35.rdebuffs.font = font
 	E.db.unitframe.units.raid40.rdebuffs.font = font
 
 	E:StaggeredUpdateAll()
@@ -1002,7 +1005,7 @@ do -- BFA Convert, deprecated..
 				E.db.unitframe.OORAlpha = nil
 			end
 
-			for _, unit in ipairs({'target','targettarget','targettargettarget','focus','focustarget','pet','pettarget','boss','arena','party','raid','raid40','raidpet','tank','assist'}) do
+			for _, unit in ipairs({'target','targettarget','targettargettarget','focus','focustarget','pet','pettarget','boss','arena','party','raid','raid25','raid30','raid35','raid40','raidpet','tank','assist'}) do
 				if E.db.unitframe.units[unit].rangeCheck ~= nil then
 					local enabled = E.db.unitframe.units[unit].rangeCheck
 					E.db.unitframe.units[unit].fader.enable = enabled
@@ -1302,6 +1305,15 @@ function E:DBConvertSL()
 	end
 	if E.db.unitframe.units.raid.groupBy == 'ROLE2' or E.db.unitframe.units.raid.groupBy == 'CLASSROLE' then
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
+	end
+	if E.db.unitframe.units.raid25.groupBy == 'ROLE2' or E.db.unitframe.units.raid25.groupBy == 'CLASSROLE' then
+		E.db.unitframe.units.raid25.groupBy = 'ROLE'
+	end
+	if E.db.unitframe.units.raid30.groupBy == 'ROLE2' or E.db.unitframe.units.raid30.groupBy == 'CLASSROLE' then
+		E.db.unitframe.units.raid30.groupBy = 'ROLE'
+	end
+	if E.db.unitframe.units.raid35.groupBy == 'ROLE2' or E.db.unitframe.units.raid35.groupBy == 'CLASSROLE' then
+		E.db.unitframe.units.raid35.groupBy = 'ROLE'
 	end
 	if E.db.unitframe.units.raid40.groupBy == 'ROLE2' or E.db.unitframe.units.raid40.groupBy == 'CLASSROLE' then
 		E.db.unitframe.units.raid40.groupBy = 'ROLE'
