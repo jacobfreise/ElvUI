@@ -288,26 +288,29 @@ end
 function E:UpdateMedia()
 	if not E.db.general or not E.private.general then return end --Prevent rare nil value errors
 
-	--Fonts
+	-- Fonts
 	E.media.normFont = LSM:Fetch('font', E.db.general.font)
 	E.media.combatFont = LSM:Fetch('font', E.private.general.dmgfont)
 
-	--Textures
+	-- Textures
 	E.media.blankTex = LSM:Fetch('background', 'ElvUI Blank')
 	E.media.normTex = LSM:Fetch('statusbar', E.private.general.normTex)
 	E.media.glossTex = LSM:Fetch('statusbar', E.private.general.glossTex)
 
-	--Colors
+	-- Colors
 	E.media.bordercolor = E:SetColorTable(E.media.bordercolor, E:UpdateClassColor(E.db.general.bordercolor))
 	E.media.unitframeBorderColor = E:SetColorTable(E.media.unitframeBorderColor, E:UpdateClassColor(E.db.unitframe.colors.borderColor))
 	E.media.backdropcolor = E:SetColorTable(E.media.backdropcolor, E:UpdateClassColor(E.db.general.backdropcolor))
 	E.media.backdropfadecolor = E:SetColorTable(E.media.backdropfadecolor, E:UpdateClassColor(E.db.general.backdropfadecolor))
 
+	-- Custom Glow Color
+	E.media.customGlowColor = E:SetColorTable(E.media.customGlowColor, E:UpdateClassColor(E.db.general.customGlow.color))
+
 	local value = E:UpdateClassColor(E.db.general.valuecolor)
 	E.media.rgbvaluecolor = E:SetColorTable(E.media.rgbvaluecolor, value)
 	E.media.hexvaluecolor = E:RGBToHex(value.r, value.g, value.b)
 
-	--Chat Tab Selector Color
+	-- Chat Tab Selector Color
 	E:UpdateClassColor(E.db.chat.tabSelectorColor)
 
 	-- Chat Panel Background Texture
@@ -1800,6 +1803,11 @@ function E:DBConversions()
 	if E.global.nameplate then
 		E:CopyTable(E.global.nameplates, E.global.nameplate)
 		E.global.nameplate = nil
+	end
+
+	-- just for people using dev build at the moment
+	if type(E.db.general.customGlow) ~= 'table' then
+		E.db.general.customGlow = E:CopyTable({}, P.general.customGlow)
 	end
 
 	-- always convert

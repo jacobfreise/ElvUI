@@ -15,6 +15,7 @@ local GetCVarDefault = GetCVarDefault
 local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetNumSubgroupMembers = GetNumSubgroupMembers
+local GetPartyAssignment = GetPartyAssignment
 local InCombatLockdown = InCombatLockdown
 local IsInGroup, IsInRaid = IsInGroup, IsInRaid
 local SetCVar = SetCVar
@@ -516,11 +517,12 @@ function NP:GROUP_ROSTER_UPDATE()
 
 	wipe(NP.GroupRoles)
 
-	if NP.IsInGroup and E.Retail then
-		local Unit = (isInRaid and 'raid') or 'party'
-		for i = 1, ((isInRaid and GetNumGroupMembers()) or GetNumSubgroupMembers()) do
-			if UnitExists(Unit .. i) then
-				NP.GroupRoles[UnitName(Unit .. i)] = UnitGroupRolesAssigned(Unit .. i)
+	if NP.IsInGroup then
+		local group = isInRaid and 'raid' or 'party'
+		for i = 1, (isInRaid and GetNumGroupMembers()) or GetNumSubgroupMembers() do
+			local unit = group .. i
+			if UnitExists(unit) then
+				NP.GroupRoles[UnitName(unit)] = not E.Retail and (GetPartyAssignment('MAINTANK', unit) and 'TANK' or 'NONE') or UnitGroupRolesAssigned(unit)
 			end
 		end
 	end
@@ -633,6 +635,11 @@ function NP:PlateFade(nameplate, timeToFade, startAlpha, endAlpha)
 	end
 end
 
+function NP:UnitNPCID(unit)
+	local guid = UnitGUID(unit)
+	return guid and select(6, strsplit('-', guid)), guid
+end
+
 function NP:UpdatePlateGUID(nameplate, guid)
 	NP.PlateGUID[nameplate.unitGUID] = (guid and nameplate) or nil
 end
@@ -721,14 +728,13 @@ function NP:NamePlateCallBack(nameplate, event, unit)
 		nameplate.isPlayer = UnitIsPlayer(unit)
 		nameplate.isPVPSanctuary = UnitIsPVPSanctuary(unit)
 		nameplate.isBattlePet = E.Retail and UnitIsBattlePet(unit)
-		nameplate.unitGUID = UnitGUID(unit)
 		nameplate.reaction = UnitReaction('player', unit) -- Player Reaction
 		nameplate.repReaction = UnitReaction(unit, 'player') -- Reaction to Player
 		nameplate.faction = UnitFactionGroup(unit)
 		nameplate.battleFaction = E:GetUnitBattlefieldFaction(unit)
 		nameplate.unitName, nameplate.unitRealm = UnitName(unit)
 		nameplate.className, nameplate.classFile, nameplate.classID = UnitClass(unit)
-		nameplate.npcID = nameplate.unitGUID and select(6, strsplit('-', nameplate.unitGUID))
+		nameplate.npcID, nameplate.unitGUID = NP:UnitNPCID(unit)
 		nameplate.classColor = (nameplate.isPlayer and E:ClassColor(nameplate.classFile)) or (nameplate.repReaction and NP.db.colors.reactions[nameplate.repReaction == 4 and 'neutral' or nameplate.repReaction <= 3 and 'bad' or 'good']) or nil
 
 		if nameplate.unitGUID then
