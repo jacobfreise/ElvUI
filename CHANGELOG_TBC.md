@@ -1,4 +1,16 @@
-### Version 2.34 [ ETA: 🍨 ]
+### Version 2.35 [ ETA: 🍨 ]
+
+Chat: Fixed Copy Chat Lines  
+Cosmetic: Fixed AutoCast Shine custom glow  
+UnitFrames: Classbar in Druid Bear Form can now display Mana  
+UnitFrames: Added additional power options  
+
+___
+### Version 2.34 [ January 24th 2022 ]
+
+Auras: Added color toggles for enchants & debuffs  
+Skins: Fixed another Raid.lua skin error  
+UnitFrames: LibHealComm fixes for Warlock & Hunter  
 
 ___
 ### Version 2.33 [ January 18th 2022 ]

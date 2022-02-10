@@ -38,8 +38,16 @@ local ClassByID = {
 
 for _, classInfo in pairs(ClassByID) do classInfo.displayName = LOCALIZED_CLASS_NAMES_MALE[classInfo.name] end
 
+-- Expansions
+local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
+local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
+local isWrath = false
+
 local Stat = { Strength = 1, Agility = 2, Stamina = 3, Intellect = 4, Spirit = 5 }
 local Role = { Damager = 'DAMAGER', Tank = 'TANK', Healer = 'HEALER' }
+
+local ClassID = select(3, UnitClass('player'))
 
 -- Detailed info for each spec
 local SpecInfo = {
@@ -408,12 +416,11 @@ function LCS.GetSpecialization(isInspect, isPet)
 		end
 	end
 
-	local classId = select(3, UnitClass('player'))
-
-	if (classId == 11) then -- Druid
+	if (ClassID == 11) then -- Druid
 		local feralInstinctPoints = select(5, GetTalentInfo(DRUID_FERAL_TAB, DRUID_FERAL_INSTINCT))
 		local thickHidePoints = select(5, GetTalentInfo(DRUID_FERAL_TAB, DRUID_THICK_HIDE))
-		if (feralInstinctPoints == 5 and thickHidePoints >= 2) then
+
+		if (feralInstinctPoints >= 2 or thickHidePoints >= 2) then
 			return DRUID_GUARDIAN_SPEC_INDEX
 		end
 
@@ -431,8 +438,7 @@ function LCS.GetSpecializationInfo(specIndex, isInspect, isPet)
 		return
 	end
 
-	local _, _, classId = UnitClass('player')
-	local specId = ClassByID[classId].specs[specIndex]
+	local specId = ClassByID[ClassID].specs[specIndex]
 	local spec = SpecInfo[specId]
 
 	if not spec then
@@ -456,7 +462,7 @@ function LCS.GetSpecializationInfoForClassID(classId, specIndex)
 		return
 	end
 
-	local isAllowed = classId == select(3, UnitClass('player'))
+	local isAllowed = classId == ClassID
 
 	return specId, info.name, info.description, info.icon, info.role, info.isRecommended, isAllowed
 end
@@ -470,24 +476,10 @@ function LCS.GetSpecializationRole(specIndex, isInspect, isPet)
 		return
 	end
 
-	local _, _, classId = UnitClass('player')
-	local specId = ClassByID[classId].specs[specIndex]
+	local specId = ClassByID[ClassID].specs[specIndex]
 	return SpecInfo[specId] and SpecInfo[specId].role
 end
 
 function LCS.GetNumClasses()
 	return #ClassByID
 end
-
--- Expose Entire Lib
-if not MAX_TALENT_TIERS then MAX_TALENT_TIERS = LCS.MAX_TALENT_TIERS end
-if not NUM_TALENT_COLUMNS then NUM_TALENT_COLUMNS = LCS.NUM_TALENT_COLUMNS end
-if not GetNumClasses then GetNumClasses = LCS.GetNumClasses end
-if not GetClassInfo then GetClassInfo = LCS.GetClassInfo end
-if not GetNumSpecializationsForClassID then GetNumSpecializationsForClassID = LCS.GetNumSpecializationsForClassID end
-if not GetActiveSpecGroup then GetActiveSpecGroup = LCS.GetActiveSpecGroup end
-if not GetSpecialization then GetSpecialization = LCS.GetSpecialization end
-if not GetSpecializationInfo then GetSpecializationInfo = LCS.GetSpecializationInfo end
-if not GetSpecializationInfoForClassID then GetSpecializationInfoForClassID = LCS.GetSpecializationInfoForClassID end
-if not GetSpecializationRole then GetSpecializationRole = LCS.GetSpecializationRole end
-if not GetSpecializationRoleByID then GetSpecializationRoleByID = LCS.GetSpecializationRoleByID end

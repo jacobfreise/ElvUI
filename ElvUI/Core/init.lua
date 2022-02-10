@@ -182,24 +182,32 @@ do -- expand LibCustomGlow for button handling
 end
 
 do
-	local a1,a2,a3 = '','([%(%)%.%%%+%-%*%?%[%^%$])','%%%1'
-	function E:EscapeString(s) return gsub(s,a2,a3) end
+	local a,b,c = '','([%(%)%.%%%+%-%*%?%[%^%$])','%%%1'
+	function E:EscapeString(s) return gsub(s,b,c) end
 
-	local a4,a5,a6,a7 = '|c[fF][fF]%x%x%x%x%x%x','|r','|[TA].-|[ta]','^%s*'
+	local d = {'|c[fF][fF]%x%x%x%x%x%x','|r','|[TA].-|[ta]','^%s+','%s+$'}
 	function E:StripString(s)
-		return gsub(gsub(gsub(gsub(s,a4,a1),a5,a1),a6,a1),a7,a1)
+		for _, z in next, d do s = gsub(s,z,a) end
+		return s
 	end
 end
 
 do
-	DisableAddOn('ElvUI_VisualAuraTimers')
-	DisableAddOn('ElvUI_ExtraActionBars')
-	DisableAddOn('ElvUI_CastBarOverlay')
-	DisableAddOn('ElvUI_EverySecondCounts')
-	DisableAddOn('ElvUI_AuraBarsMovers')
-	DisableAddOn('ElvUI_CustomTweaks')
-	DisableAddOn('ElvUI_DTBars2')
-	DisableAddOn('ElvUI_QuestXP')
+	local alwaysDisable = {
+		'ElvUI_VisualAuraTimers',
+		'ElvUI_ExtraActionBars',
+		'ElvUI_CastBarOverlay',
+		'ElvUI_EverySecondCounts',
+		'ElvUI_AuraBarsMovers',
+		'ElvUI_CustomTweaks',
+		'ElvUI_DTBars2',
+		'ElvUI_QuestXP',
+		'ElvUI_CustomTags'
+	}
+
+	for _, addon in next, alwaysDisable do
+		DisableAddOn(addon)
+	end
 end
 
 function E:OnEnable()

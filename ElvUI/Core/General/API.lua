@@ -14,8 +14,8 @@ local GetAddOnEnableState = GetAddOnEnableState
 local GetBattlefieldArenaFaction = GetBattlefieldArenaFaction
 local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
-local GetSpecialization = GetSpecialization
-local GetSpecializationRole = GetSpecializationRole
+local GetSpecialization = not E.Retail and LCS.GetSpecialization or GetSpecialization
+local GetSpecializationRole = not E.Retail and LCS.GetSpecializationRole or GetSpecializationRole
 local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
@@ -180,12 +180,8 @@ function E:GetThreatStatusColor(status, nothreat)
 end
 
 function E:GetPlayerRole()
-	if E.Retail then
-		local role = UnitGroupRolesAssigned('player')
-		return (role == 'NONE' and E.myspec and GetSpecializationRole(E.myspec)) or role
-	else
-		return LCS.GetSpecializationRole(LCS.GetSpecialization())
-	end
+	local role = E.Retail and UnitGroupRolesAssigned('player') or 'NONE'
+	return (role == 'NONE' and E.myspec and GetSpecializationRole(E.myspec)) or role
 end
 
 function E:CheckRole()
@@ -608,7 +604,7 @@ function E:PositionGameMenuButton()
 	GameMenuFrame:Height(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() - 4)
 
 	local button = GameMenuFrame[E.name]
-	button:SetText(format('%s%s|r', E.media.hexvaluecolor, E.name))
+	button:SetFormattedText('%s%s|r', E.media.hexvaluecolor, E.name)
 
 	local _, relTo, _, _, offY = GameMenuButtonLogout:GetPoint()
 	if relTo ~= button then
